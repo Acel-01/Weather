@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acel Weather Update</title>
+    <link rel="stylesheet" href="./Css/weather app.css">
+    <link rel="shortcut icon" href="./img/faviconimg.jpg" type="image/x-icon">
+</head>
+<body>
+    <div class = "title">
+        <h1>Acel's Weather Update</h1>
+        <h3>Check the wether for your current Location</h3>
+    </div>
+    <div>
+        <form action=""  method="GET" class = "input">
+            <h5 class="fddd">Enter Location</h5>
+            <input class="inputval" placeholder="Your city name"  type="text" name="Enter country" id="frrr">
+            <input type="button"  class="button" value="Get Weather">
+        </form>
+
+        <div>
+            <h1 class="name"></h1>
+            <p class="desc"></p>
+            <p class="temp"></p>
+
+        </div>
+    </div>
+
+
+    <script>
+        var button = document.querySelector('.button');
+        var input = document.querySelector('.inputval');
+        var name = document.querySelector('.name');
+        var desc = document.querySelector('.desc');
+        var temp = document.querySelector('.temp');
+            
+        button.addEventListener('click', function(){
+            fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=4202e35214f8924a21495fd4c4670fe4')
+            .then(response => response.json())
+            .then(data => {
+                var nameValue = data['name'];
+                var tempValue = ((data['main']['temp'])-273.15).toFixed(2) + "deg C";
+                var descValue = data['weather'][0]['description'];
+
+                name.innerHTML = nameValue;
+                temp.innerHTML = tempValue;
+                desc.innerHTML = descValue;
+            })
+            .catch(error => alert("Wrong city name!"))
+
+        })
+
+    </script>
+</body>
+</html>
